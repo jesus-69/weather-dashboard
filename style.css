@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -12,15 +11,19 @@ body {
     padding: 20px;
 }
 
-.container {
+.main-container {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 header {
     text-align: center;
     color: white;
     margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1 {
@@ -39,6 +42,9 @@ h1 {
     justify-content: center;
     gap: 10px;
     margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search-input {
@@ -73,7 +79,8 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
-    margin-bottom: 30px;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .weather-card {
@@ -98,7 +105,6 @@ h1 {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .city-name {
@@ -106,12 +112,14 @@ h1 {
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .country {
     color: #666;
     font-size: 0.9em;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .weather-icon {
@@ -163,8 +171,6 @@ h1 {
     font-weight: 600;
 }
 
-
-
 .remove-btn {
     position: absolute;
     top: 10px;
@@ -187,12 +193,4 @@ h1 {
 .remove-btn:hover {
     opacity: 1;
     transform: scale(1.1);
-}
-
-.timestamp {
-    text-align: center;
-    color: white;
-    font-size: 0.9em;
-    opacity: 0.8;
-    margin-top: 20px;
 }

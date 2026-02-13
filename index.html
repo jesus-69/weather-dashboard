@@ -7,102 +7,105 @@
     <title>weather dashboard</title>
 </head>
 <body>
-    <div>
+    <div class="main-container">
         <header>
             <h1>Weather DashBoard</h1>
-            <p> Real time updates using api</p>
+            <p class="subtitle">Real time updates using api</p>
         </header>
-    </div>
 
-    <div class="search-section">
-        <input type="text" class="search-input" id="" placeholder="Enter your city">
-        <button class="search-btn">Add city</button>
-    </div>
+        <div class="search-section">
+            <input type="text" class="search-input" placeholder="Enter your city">
+            <button class="search-btn">Add city</button>
+        </div>
 
-    <div class="weather-grid">
-        <div class="weather-card">
-            <button class="remove-btn" >×</button>
-            <div class="city-name"> Kathmandu</div>
-            <div class="country">Nepal</div>
-            <div class="weather-icon"><img src="" alt="" style="width: 80px; height: 80px;"></div>
-            <div class="temperature">12°C</div>
-            <div class="description">warm</div>
-            <div class="details">
-                <div class="detail-item">
-                    <span class="detail-label">Feels Like</span>
-                    <span class="detail-value">10°C</span>
+        <div class="weather-grid">
+            <div class="weather-card">
+                <button class="remove-btn">×</button>
+                <div class="city-name">Kathmandu</div>
+                <div class="country">Nepal</div>
+                <div class="weather-icon">
+                    <img src="" alt="" style="width: 80px; height: 80px;">
                 </div>
-                <div class="detail-item">
-                    <span class="detail-label">Humidity</span>
-                    <span class="detail-value">7%</span>
+                <div class="temperature">12°C</div>
+                <div class="description">warm</div>
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="detail-label">Feels Like</span>
+                        <span class="detail-value">10°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value">7%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wind Speed</span>
+                        <span class="detail-value">6 km/h</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value">22 hPa</span>
+                    </div>
                 </div>
-                <div class="detail-item">
-                    <span class="detail-label">Wind Speed</span>
-                    <span class="detail-value">6 km/h</span>
+            </div>
+            
+            <div class="weather-card">
+                <button class="remove-btn">×</button>
+                <div class="city-name">Kathmandu</div>
+                <div class="country">Nepal</div>
+                <div class="weather-icon">
+                    <img src="" alt="" style="width: 80px; height: 80px;">
                 </div>
-                <div class="detail-item">
-                    <span class="detail-label">Pressure</span>
-                    <span class="detail-value">22 hPa</span>
+                <div class="temperature">12°C</div>
+                <div class="description">warm</div>
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="detail-label">Feels Like</span>
+                        <span class="detail-value">10°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value">7%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wind Speed</span>
+                        <span class="detail-value">6 km/h</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value">22 hPa</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-card">
+                <button class="remove-btn">×</button>
+                <div class="city-name">Kathmandu</div>
+                <div class="country">Nepal</div>
+                <div class="weather-icon">
+                    <img src="" alt="" style="width: 80px; height: 80px;">
+                </div>
+                <div class="temperature">12°C</div>
+                <div class="description">warm</div>
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="detail-label">Feels Like</span>
+                        <span class="detail-value">10°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value">7%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wind Speed</span>
+                        <span class="detail-value">6 km/h</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value">22 hPa</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="weather-card">
-            <button class="remove-btn" >×</button>
-            <div class="city-name"> Kathmandu</div>
-            <div class="country">Nepal</div>
-            <div class="weather-icon"><img src="" alt="" style="width: 80px; height: 80px;"></div>
-            <div class="temperature">12°C</div>
-            <div class="description">warm</div>
-            <div class="details">
-                <div class="detail-item">
-                    <span class="detail-label">Feels Like</span>
-                    <span class="detail-value">10°C</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Humidity</span>
-                    <span class="detail-value">7%</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Wind Speed</span>
-                    <span class="detail-value">6 km/h</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Pressure</span>
-                    <span class="detail-value">22 hPa</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="weather-card">
-            <button class="remove-btn" >×</button>
-            <div class="city-name"> Kathmandu</div>
-            <div class="country">Nepal</div>
-            <div class="weather-icon"><img src="" alt="" style="width: 80px; height: 80px;"></div>
-            <div class="temperature">12°C</div>
-            <div class="description">warm</div>
-            <div class="details">
-                <div class="detail-item">
-                    <span class="detail-label">Feels Like</span>
-                    <span class="detail-value">10°C</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Humidity</span>
-                    <span class="detail-value">7%</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Wind Speed</span>
-                    <span class="detail-value">6 km/h</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Pressure</span>
-                    <span class="detail-value">22 hPa</span>
-                </div>
-            </div>
-        </div>
-
-        
     </div>
-
-    <div></div>
 </body>
 </html>
