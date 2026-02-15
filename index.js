@@ -1,13 +1,9 @@
 
         // Default cities to display
         const defaultCities = [
-            'London',
+            'Kathmandu',
             'New York',
             'Tokyo',
-            'Paris',
-            'Sydney',
-            'Dubai',
-            'Mumbai',
             'Singapore'
         ];
 
