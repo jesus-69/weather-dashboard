@@ -1,100 +1,137 @@
-import { data } from "./data.js";
 
-function loadAllWeather() { 
-    let weatherHTML = '';
-    
-    data.forEach((item) => {
-        weatherHTML += `
-            <div class="weather-card" data-index="${item.index}">
-                <button class="remove-btn" onclick="removeCity(${item.index})">×</button>
-                <div class="city-name">${item.location.name}</div>
-                <div class="country">${item.location.country.trim()}</div>
-                <div class="weather-icon">
-                    <img src="https://openweathermap.org/img/wn/01d.png" alt="${item.condition.text}" style="width: 80px; height: 80px;">
-                </div>
-                <div class="temperature">${Math.round(item.condition.temp_c)}°C</div>
-                <div class="description">${item.condition.text}</div>
-                <div class="details">
-                    <div class="detail-item">
-                        <span class="detail-label">Feels Like</span>
-                        <span class="detail-value">${Math.round(item.condition.feelslike_c)}°C</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Humidity</span>
-                        <span class="detail-value">${item.condition.humidity}%</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Wind Speed</span>
-                        <span class="detail-value">${Math.round(item.condition.wind_kph)} km/h</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Pressure</span>
-                        <span class="detail-value">${Math.round(item.condition.pressure_mb || item.condition.pressure)} hPa</span>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-    
-    document.querySelector('.weather-grid').innerHTML = weatherHTML;
-}
+        // Default cities to display
+        const defaultCities = [
+            'London',
+            'New York',
+            'Tokyo',
+            'Paris',
+            'Sydney',
+            'Dubai',
+            'Mumbai',
+            'Singapore'
+        ];
 
-window.removeCity = function(index) {
-    const itemIndex = data.findIndex(item => item.index === index);
-    
-    if (itemIndex !== -1) {
-        data.splice(itemIndex, 1);
-        loadAllWeather();
-        console.log(`City with index ${index} removed`);
-    }
-};
+        let cities = [...defaultCities];
 
-function addCity() {
-    const searchInput = document.querySelector('.search-input');
-    const cityName = searchInput.value.trim();
-    
-    if (cityName === '') {
-        alert('Please enter a city name');
-        return;
-    }
-    const newCity = {
-        index: data.length + 1,
-        location: {
-            name: cityName,
-            country: "Nepal"
-        },
-        condition: {
-            text: "warm",
-            temp_c: Math.floor(Math.random() * 20) + 10, // Random temp between 10-30
-            feelslike_c: Math.floor(Math.random() * 20) + 10,
-            humidity: Math.floor(Math.random() * 50) + 30,
-            wind_kph: Math.floor(Math.random() * 15) + 5,
-            pressure: Math.floor(Math.random() * 30) + 10
+        async function fetchWeather(city) {
+            const API_KEY = '058564bd42724305ba0141848261302';
+            const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('City not found');
+                }
+                return await response.json();
+            } catch (error) {
+                throw error;
+            }
         }
-    };
-    
-    data.push(newCity);
-    loadAllWeather();
-    searchInput.value = '';
-    console.log('New city added:', newCity);
-}
 
+        function createWeatherCard(data, index) {
+            const icon = data.current.condition.icon.startsWith('//') 
+                ? `https:${data.current.condition.icon}` 
+                : data.current.condition.icon;
+            
+            return `
+                <div class="weather-card">
+                    <button class="remove-btn" onclick="removeCity(${index})">×</button>
+                    <div class="city-name">${data.location.name}</div>
+                    <div class="country">${data.location.country}</div>
+                    <div class="weather-icon"><img src="${icon}" alt="${data.current.condition.text}" style="width: 80px; height: 80px;"></div>
+                    <div class="temperature">${Math.round(data.current.temp_c)}°C</div>
+                    <div class="description">${data.current.condition.text}</div>
+                    <div class="details">
+                        <div class="detail-item">
+                            <span class="detail-label">Feels Like</span>
+                            <span class="detail-value">${Math.round(data.current.feelslike_c)}°C</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Humidity</span>
+                            <span class="detail-value">${data.current.humidity}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Wind Speed</span>
+                            <span class="detail-value">${Math.round(data.current.wind_kph)} km/h</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Pressure</span>
+                            <span class="detail-value">${Math.round(data.current.pressure_mb)} hPa</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
+        async function loadAllWeather() {
+            const weatherGrid = document.getElementById('weatherGrid');
+            const loading = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            weatherGrid.innerHTML = '';
 
-    loadAllWeather();
-    const searchBtn = document.querySelector('.search-btn');
-    const searchInput = document.querySelector('.search-input');
-    
-    if (searchBtn) {
-        searchBtn.addEventListener('click', addCity);
-    }
-    
-    if (searchInput) {
-        searchInput.addEventListener('keypress', (e) => {
+            const weatherPromises = cities.map(city => fetchWeather(city));
+            
+            try {
+                const results = await Promise.allSettled(weatherPromises);
+                const cards = results
+                    .map((result, index) => {
+                        if (result.status === 'fulfilled') {
+                            return createWeatherCard(result.value, index);
+                        }
+                        return '';
+                    })
+                    .join('');
+                
+                weatherGrid.innerHTML = cards;
+                updateTimestamp();
+            } catch (error) {
+                errorDiv.textContent = 'Error loading weather data. Please check your API key.';
+                errorDiv.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function addCity() {
+            const input = document.getElementById('cityInput');
+            const city = input.value.trim();
+            const errorDiv = document.getElementById('error');
+            
+            if (city && !cities.includes(city)) {
+                cities.push(city);
+                loadAllWeather();
+                input.value = '';
+                errorDiv.style.display = 'none';
+            } else if (cities.includes(city)) {
+                errorDiv.textContent = 'City already added!';
+                errorDiv.style.display = 'block';
+                setTimeout(() => errorDiv.style.display = 'none', 3000);
+            }
+        }
+
+        function removeCity(index) {
+            cities.splice(index, 1);
+            loadAllWeather();
+        }
+
+        function updateTimestamp() {
+            const timestamp = document.getElementById('timestamp');
+            const now = new Date();
+            timestamp.textContent = `Last updated: ${now.toLocaleString()}`;
+        }
+
+        
+        document.getElementById('cityInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addCity();
             }
         });
-    }
-});
+
+      
+        loadAllWeather();
+
+        
+        setInterval(loadAllWeather, 300000);

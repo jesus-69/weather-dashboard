@@ -7,19 +7,21 @@
     <title>weather dashboard</title>
 </head>
 <body>
-    <div class="main-container">
+   <div class="container">
         <header>
-            <h1>Weather DashBoard</h1>
-            <p class="subtitle">Real time updates using api</p>
+            <h1>🌍 Global Weather Dashboard</h1>
+            <p class="subtitle">Real-time weather updates from around the world</p>
         </header>
 
         <div class="search-section">
-            <input type="text" class="search-input" placeholder="Enter your city">
-            <button class="search-btn">Add city</button>
+            <input type="text" class="search-input" id="cityInput" placeholder="Enter city name...">
+            <button class="search-btn" onclick="addCity()">Add City</button>
         </div>
 
-        <div class="weather-grid">
-        </div>
+        <div id="weatherGrid" class="weather-grid"></div>
+        <div id="loading" class="loading" style="display: none;">Loading weather data...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div class="timestamp" id="timestamp"></div>
     </div>
 
     <script type="module" src="index.js"></script>
